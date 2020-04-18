@@ -6,7 +6,32 @@ ModelImporter:
   - first:
       74: -203655887218126122
     second: T-Pose
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Standard_80FF00
+    second: {fileID: 2100000, guid: 4e880f6223b70438a994c08826e9f4a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Standard_BBFF36
+    second: {fileID: 2100000, guid: 400f81c7dedee46389a103cb9090e2f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Standard_ED2A00
+    second: {fileID: 2100000, guid: fc50801c3bcee4b179e8784cee0961b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Standard_F0F700
+    second: {fileID: 2100000, guid: 481e7c0889bbf42218777bd94f6b5936, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Standard_FF8000
+    second: {fileID: 2100000, guid: e8e36aad73a584e1fb4ed6b87a7600c2, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
