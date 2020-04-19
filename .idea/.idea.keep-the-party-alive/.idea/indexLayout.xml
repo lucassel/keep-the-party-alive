@@ -9,6 +9,7 @@
       <Path>Library/PackageCache/com.unity.ide.rider@1.1.4</Path>
       <Path>Library/PackageCache/com.unity.ide.vscode@1.1.4</Path>
       <Path>Library/PackageCache/com.unity.mathematics@1.1.0</Path>
+      <Path>Library/PackageCache/com.unity.quicksearch@1.6.0-preview.6</Path>
       <Path>Library/PackageCache/com.unity.render-pipelines.core@7.3.1</Path>
       <Path>Library/PackageCache/com.unity.render-pipelines.universal@7.3.1</Path>
       <Path>Library/PackageCache/com.unity.shadergraph@7.3.1</Path>
@@ -30,6 +31,8 @@
       <Path>Library</Path>
       <Path>Logs</Path>
       <Path>Temp</Path>
+      <Path>guests_norig</Path>
+      <Path>guests_rig</Path>
       <Path>obj</Path>
     </explicitExcludes>
   </component>
