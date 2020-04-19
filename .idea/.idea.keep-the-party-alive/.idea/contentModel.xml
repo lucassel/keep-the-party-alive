@@ -11,6 +11,9 @@
             <e p="StencilTest.shader" t="Include" />
             <e p="StencilWrite.shader" t="Include" />
           </e>
+          <e p="Stuff" t="Include">
+            <e p="Cull.shader" t="Include" />
+          </e>
           <e p="TutorialInfo" t="Include">
             <e p="Scripts" t="Include">
               <e p="Editor" t="Include">
