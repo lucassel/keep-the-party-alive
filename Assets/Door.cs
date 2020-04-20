@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Animator))]
@@ -23,7 +25,7 @@ public class Door : MonoBehaviour
   private Guest _dudeAboutToBeFlung;
 
 
-  private void Start()
+  public void Init()
   {
     _animator = GetComponent<Animator>();
     Points = new List<Vector3>();
@@ -47,19 +49,21 @@ public class Door : MonoBehaviour
   private int countdown = 60;
   private int counter;
   
-  
-  
   private Vector2 fingerDown;
   private Vector2 fingerUp;
   public bool detectSwipeOnlyAfterRelease = false;
 
   public float SWIPE_THRESHOLD = 20f;
-  
 
-  
-  private void Update()
+
+
+  public bool DoorPlaced;
+
+
+
+
+  private void EntryCheck()
   {
-
     if (counter < countdown)
     {
       if (Application.isMobilePlatform)
@@ -110,7 +114,20 @@ public class Door : MonoBehaviour
     {
       counter = 0;
     }
+  }
 
+
+
+
+  private void Update()
+  {
+    if (DoorPlaced)
+    {
+     
+      EntryCheck();
+ 
+    }
+  
   }
 
   

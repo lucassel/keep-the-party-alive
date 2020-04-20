@@ -24,6 +24,7 @@
           </e>
         </e>
         <e p="Door.cs" t="Include" />
+        <e p="GameManager.cs" t="Include" />
         <e p="Guest.cs" t="Include" />
         <e p="Runtime" t="Include">
           <e p="PlaceOnPlane.cs" t="Include" />

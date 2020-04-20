@@ -121,6 +121,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &300137341 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2831275783416623161, guid: 0ba7718623a03c8459d44c0114db4354,
+    type: 3}
+  m_PrefabInstance: {fileID: 5117923654706561711}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68e2ef79dff54b4da79d4a180d78342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &653260035
 GameObject:
   m_ObjectHideFlags: 0
@@ -4923,6 +4935,59 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &938605859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 938605861}
+  - component: {fileID: 938605860}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &938605860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938605859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf2147ae66d8cb458eac0b551ef2ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RaycastManager: {fileID: 1649258463}
+  PlaneManager: {fileID: 1649258462}
+  Game: {fileID: 1061049741}
+  Door: {fileID: 300137341}
+--- !u!4 &938605861
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938605859}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2248459, y: 1.9654098, z: 3.3837037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1061049741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5117923654485107379, guid: 0ba7718623a03c8459d44c0114db4354,
+    type: 3}
+  m_PrefabInstance: {fileID: 5117923654706561711}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1649258459
 GameObject:
   m_ObjectHideFlags: 0
@@ -4934,6 +4999,7 @@ GameObject:
   - component: {fileID: 1649258460}
   - component: {fileID: 1649258461}
   - component: {fileID: 1649258462}
+  - component: {fileID: 1649258463}
   m_Layer: 0
   m_Name: ARSessionOrigin
   m_TagString: Untagged
@@ -4984,6 +5050,18 @@ MonoBehaviour:
   m_PlanePrefab: {fileID: 1568414836858200, guid: f0e0be81472ff1243aa2afa27e5d0e61,
     type: 3}
   m_DetectionMode: -1
+--- !u!114 &1649258463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649258459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1687258581
 GameObject:
   m_ObjectHideFlags: 0
