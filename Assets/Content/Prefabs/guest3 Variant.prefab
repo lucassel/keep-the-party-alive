@@ -724,6 +724,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6849777cfd24f144c97ef09a54c51318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BigSpender: 0.7
+  MoodFactor: -0.399
+  PickyAboutMood: 1
   Center: {fileID: 750483532}
 --- !u!54 &1506943486
 Rigidbody:
@@ -955,7 +958,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 71a7f2c51c51f3841bdca0735ec086bd,
         type: 3}
       propertyPath: m_Name
-      value: guest3
+      value: guest3 Variant
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 71a7f2c51c51f3841bdca0735ec086bd,
         type: 3}

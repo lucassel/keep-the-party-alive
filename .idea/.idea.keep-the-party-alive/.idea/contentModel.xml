@@ -7,86 +7,6 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="ARF" t="Include">
-          <e p="Scenes" t="Include">
-            <e p="ARCollaborationData" t="Include">
-              <e p="AnchorInfoManager.cs" t="Include" />
-              <e p="CollaborationNetworkingIndicator.cs" t="Include" />
-              <e p="CollaborativeSession.cs" t="Include" />
-              <e p="DisplayTrackingState.cs" t="Include" />
-            </e>
-            <e p="ARKitCoachingOverlay" t="Include">
-              <e p="ARKitCoachingOverlay.cs" t="Include" />
-            </e>
-            <e p="FaceTracking" t="Include">
-              <e p="DisplayFaceInfo.cs" t="Include" />
-              <e p="ToggleCameraFacingDirection.cs" t="Include" />
-            </e>
-            <e p="ImageTracking" t="Include">
-              <e p="TrackedImageInfoManager.cs" t="Include" />
-            </e>
-            <e p="LightEstimation" t="Include">
-              <e p="PlatformSelector.cs" t="Include" />
-              <e p="Rotator.cs" t="Include" />
-            </e>
-            <e p="Object Tracking" t="Include">
-              <e p="Printable Templates" t="Include">
-                <e p="README.txt" t="Include" />
-              </e>
-            </e>
-            <e p="Plane Detection" t="Include">
-              <e p="PlaneClassificationLabeler.cs" t="Include" />
-            </e>
-            <e p="PlaneOcclusion" t="Include">
-              <e p="PlaneOcclusionShader.shader" t="Include" />
-            </e>
-            <e p="PointCloud" t="Include">
-              <e p="ARAllPointCloudPointsParticleVisualizer.cs" t="Include" />
-              <e p="SwitchPointCloudVisualizationMode.cs" t="Include" />
-            </e>
-            <e p="SimpleAR" t="Include">
-              <e p="SessionReloader.cs" t="Include" />
-            </e>
-          </e>
-          <e p="Scripts" t="Include">
-            <e p="AnchorCreator.cs" t="Include" />
-            <e p="ARCoreFaceRegionManager.cs" t="Include" />
-            <e p="ARFeatheredPlaneMeshVisualizer.cs" t="Include" />
-            <e p="ARKitBlendShapeVisualizer.cs" t="Include" />
-            <e p="ARWorldMapController.cs" t="Include" />
-            <e p="BoneController.cs" t="Include" />
-            <e p="CameraConfigController.cs" t="Include" />
-            <e p="DisableVerticalPlanes.cs" t="Include" />
-            <e p="EnvironmentProbeVisualizer.cs" t="Include" />
-            <e p="EyePoseVisualizer.cs" t="Include" />
-            <e p="EyeTrackingUI.cs" t="Include" />
-            <e p="FaceMaterialSwitcher.cs" t="Include" />
-            <e p="FixationPoint2DVisualizer.cs" t="Include" />
-            <e p="FixationPoint3DVisualizer.cs" t="Include" />
-            <e p="HumanBodyTracker.cs" t="Include" />
-            <e p="LightEstimation.cs" t="Include" />
-            <e p="LightEstimationUI.cs" t="Include" />
-            <e p="Logger.cs" t="Include" />
-            <e p="MakeAppearOnPlane.cs" t="Include" />
-            <e p="PlaceMultipleObjectsOnPlane.cs" t="Include" />
-            <e p="PlaceOnPlane.cs" t="Include" />
-            <e p="PlaneDetectionController.cs" t="Include" />
-            <e p="RotationController.cs" t="Include" />
-            <e p="ScaleController.cs" t="Include" />
-            <e p="ScreenSpaceJointVisualizer.cs" t="Include" />
-            <e p="SupportChecker.cs" t="Include" />
-            <e p="TestBodyAnchorScale.cs" t="Include" />
-            <e p="TestCameraImage.cs" t="Include" />
-            <e p="TestDepthImage.cs" t="Include" />
-            <e p="UX" t="Include">
-              <e p="FadePlaneOnBoundaryChange.cs" t="Include" />
-              <e p="UIManager.cs" t="Include" />
-            </e>
-          </e>
-          <e p="Shaders" t="Include">
-            <e p="FeatheredPlaneShader.shader" t="Include" />
-          </e>
-        </e>
         <e p="Content" t="Include">
           <e p="Shaders" t="Include">
             <e p="StencilRead.shader" t="Include" />
@@ -106,6 +26,7 @@
         <e p="Door.cs" t="Include" />
         <e p="Guest.cs" t="Include" />
         <e p="Runtime" t="Include">
+          <e p="PlaceOnPlane.cs" t="Include" />
           <e p="SimpleCameraController.cs" t="Include" />
         </e>
       </e>

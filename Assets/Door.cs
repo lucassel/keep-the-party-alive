@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.NetworkInformation;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,12 +14,15 @@ public class Door : MonoBehaviour
   public List<GameObject> Guests;
   private List<GameObject> _spawned;
   private Queue<GameObject> _queue;
+  public Material CulledMaterial;
 
 
   private Animator _animator;
   private static readonly int Bam = Animator.StringToHash("BAM");
 
-  private int _counter;
+
+  private Guest _dudeAboutToBeFlung;
+
 
   private void Start()
   {
@@ -29,9 +34,10 @@ public class Door : MonoBehaviour
 
     for (int i = 0; i < 9; i++)
     {
-      Points.Add(new Vector3(transform.position.x + .5f, 0, -1f - i));
+      Points.Add(new Vector3(transform.position.x + .5f - i, 0, -1f));
       var guest = Guests[Random.Range(0, Guests.Count)];
       var spawn = Instantiate(guest, Points[i], Quaternion.identity);
+      spawn.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
       _spawned.Add(spawn);
       _queue.Enqueue(spawn);
     }
@@ -41,10 +47,34 @@ public class Door : MonoBehaviour
   private void Update()
   {
     // TODO: fix for AR
-    if (Input.GetKeyDown(KeyCode.Space))
+
+    // TODO: countdown timer
+
+
+    if (Input.GetKeyDown(KeyCode.RightArrow))
     {
       FlingGuest();
     }
+
+    if (Input.GetKeyDown(KeyCode.LeftArrow))
+    {
+      DenyGuestEntry();
+    }
+  }
+
+  private void MoveQueueUpAndInsertAtEnd()
+  {
+    var temp = _queue.ToList();
+    for (int i = 0; i < _queue.Count; i++)
+    {
+      StartCoroutine(MoveGuestUpQueue(temp[i], Points[i]));
+    }
+
+
+    // ENQUEUE AT END
+    var new_dude = Instantiate(Guests[Random.Range(0, Guests.Count)], Points[Points.Count - 1], Quaternion.identity);
+    new_dude.transform.rotation = quaternion.Euler(0f, 90f, 0f);
+    _queue.Enqueue(new_dude);
   }
 
 
@@ -54,44 +84,49 @@ public class Door : MonoBehaviour
     _animator.SetTrigger(Bam);
     var guest = _queue.Dequeue();
     StartCoroutine(PushGuest(guest));
-    // MOVE QUEUE
-
-    foreach (var dude in _queue)
-    {
-      StartCoroutine(MoveGuestUpQueue(dude));
-    }
-
-
-    // ENQUEUE AT END
-    var new_dude = Instantiate(Guests[Random.Range(0, Guests.Count)], Points[Points.Count - 1], Quaternion.identity);
-    _queue.Enqueue(new_dude);
+    MoveQueueUpAndInsertAtEnd();
   }
 
 
-  private IEnumerator MoveGuestUpQueue(GameObject guest)
+  private IEnumerator MoveGuestUpQueue(GameObject guest, Vector3 newSpot)
   {
-    var t = guest.transform.position + Vector3.forward;
-    
-    while (Vector3.Distance(guest.transform.position, t) > .01f)
+    while (Vector3.Distance(guest.transform.position, newSpot) > .01f)
     {
-      guest.transform.position = Vector3.MoveTowards(guest.transform.position, t, Time.deltaTime);
+      guest.transform.position = Vector3.MoveTowards(guest.transform.position, newSpot, Time.deltaTime);
       yield return null;
     }
   }
+
+
+  private void DenyGuestEntry()
+  {
+    var guest = _queue.Dequeue();
+
+
+    var anim = guest.GetComponent<Animator>();
+    anim.enabled = false;
+    var g = guest.GetComponent<Guest>();
+    g.Center.detectCollisions = true;
+    g.Center.mass = 10f;
+    g.Center.AddForce(guest.transform.right * 800f, ForceMode.Impulse);
+    g.StartDespawnTimer();
+    MoveQueueUpAndInsertAtEnd();
+  }
+
 
   private IEnumerator PushGuest(GameObject guest)
   {
     var anim = guest.GetComponent<Animator>();
     anim.enabled = false;
     var target = transform.forward * 4f;
-    var g = guest.GetComponent<Guest>();
-    g.Center.detectCollisions = true;
-    g.Center.mass = 10f;
-    g.Center.AddForce(guest.transform.forward *800f, ForceMode.Impulse);
-    
+    _dudeAboutToBeFlung = guest.GetComponent<Guest>();
+    _dudeAboutToBeFlung.Center.detectCollisions = true;
+    _dudeAboutToBeFlung.Center.mass = 10f;
+    _dudeAboutToBeFlung.Center.AddForce(guest.transform.right * -800f, ForceMode.Impulse);
+
     while (Vector3.Distance(guest.transform.position, target) > .1f)
     {
-      Debug.Log($"moving {guest.name}");
+      //Debug.Log($"moving {guest.name}");
       yield return null;
     }
 
@@ -100,13 +135,39 @@ public class Door : MonoBehaviour
   }
 
 
+  public static GameObject FindParentWithTag(GameObject childObject, string tag)
+  {
+    Transform t = childObject.transform;
+    while (t.parent != null)
+    {
+      if (t.parent.tag == tag)
+      {
+        return t.parent.gameObject;
+      }
+
+      t = t.parent.transform;
+    }
+
+    return null; // Could not find a parent with given tag.
+  }
+
+  private void OnTriggerEnter(Collider other)
+  {
+    if (_dudeAboutToBeFlung != null)
+    {
+      _dudeAboutToBeFlung.SKR.sharedMaterial = CulledMaterial;
+      _dudeAboutToBeFlung = null;
+    }
+    
+  }
+
   private void OnDrawGizmos()
   {
     if (Points != null)
     {
-      foreach (var p in _spawned)
+      foreach (var p in Points)
       {
-        Gizmos.DrawSphere(p.transform.position, .25f);
+        Gizmos.DrawSphere(p, .25f);
       }
     }
   }
