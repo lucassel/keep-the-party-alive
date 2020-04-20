@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
-using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -44,22 +42,40 @@ public class Door : MonoBehaviour
   }
 
 
+
+  private int countdown = 60;
+  private int counter;
   private void Update()
   {
-    // TODO: fix for AR
 
-    // TODO: countdown timer
-
-
-    if (Input.GetKeyDown(KeyCode.RightArrow))
+    if (counter < countdown)
     {
-      FlingGuest();
+      if (Application.isMobilePlatform)
+      {
+   
+        // TODO: swipe AR
+      }
+      else
+      {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+          FlingGuest();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+          DenyGuestEntry();
+        }
+      }
+
+      counter++;
+      
+    }
+    else
+    {
+      counter = 0;
     }
 
-    if (Input.GetKeyDown(KeyCode.LeftArrow))
-    {
-      DenyGuestEntry();
-    }
   }
 
   private void MoveQueueUpAndInsertAtEnd()
@@ -73,7 +89,7 @@ public class Door : MonoBehaviour
 
     // ENQUEUE AT END
     var new_dude = Instantiate(Guests[Random.Range(0, Guests.Count)], Points[Points.Count - 1], Quaternion.identity);
-    new_dude.transform.rotation = quaternion.Euler(0f, 90f, 0f);
+    new_dude.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
     _queue.Enqueue(new_dude);
   }
 
@@ -107,7 +123,7 @@ public class Door : MonoBehaviour
     anim.enabled = false;
     var g = guest.GetComponent<Guest>();
     g.Center.detectCollisions = true;
-    g.Center.mass = 10f;
+    g.Center.mass = 60f;
     g.Center.AddForce(guest.transform.right * 800f, ForceMode.Impulse);
     g.StartDespawnTimer();
     MoveQueueUpAndInsertAtEnd();
@@ -121,8 +137,8 @@ public class Door : MonoBehaviour
     var target = transform.forward * 4f;
     _dudeAboutToBeFlung = guest.GetComponent<Guest>();
     _dudeAboutToBeFlung.Center.detectCollisions = true;
-    _dudeAboutToBeFlung.Center.mass = 10f;
-    _dudeAboutToBeFlung.Center.AddForce(guest.transform.right * -800f, ForceMode.Impulse);
+    _dudeAboutToBeFlung.Center.mass = 60f;
+    _dudeAboutToBeFlung.Center.AddForce(guest.transform.right * -750f, ForceMode.Impulse);
 
     while (Vector3.Distance(guest.transform.position, target) > .1f)
     {
@@ -158,7 +174,6 @@ public class Door : MonoBehaviour
       _dudeAboutToBeFlung.SKR.sharedMaterial = CulledMaterial;
       _dudeAboutToBeFlung = null;
     }
-    
   }
 
   private void OnDrawGizmos()
