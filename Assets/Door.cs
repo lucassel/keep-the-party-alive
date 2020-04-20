@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Animator))]
@@ -45,6 +46,17 @@ public class Door : MonoBehaviour
 
   private int countdown = 60;
   private int counter;
+  
+  
+  
+  private Vector2 fingerDown;
+  private Vector2 fingerUp;
+  public bool detectSwipeOnlyAfterRelease = false;
+
+  public float SWIPE_THRESHOLD = 20f;
+  
+
+  
   private void Update()
   {
 
@@ -52,14 +64,37 @@ public class Door : MonoBehaviour
     {
       if (Application.isMobilePlatform)
       {
-   
-        // TODO: swipe AR
+        foreach (Touch touch in Input.touches)
+        {
+          if (touch.phase == TouchPhase.Began)
+          {
+            fingerUp = touch.position;
+            fingerDown = touch.position;
+          }
+
+          //Detects Swipe while finger is still moving
+          if (touch.phase == TouchPhase.Moved)
+          {
+            if (!detectSwipeOnlyAfterRelease)
+            {
+              fingerDown = touch.position;
+              checkSwipe();
+            }
+          }
+
+          //Detects swipe after finger is released
+          if (touch.phase == TouchPhase.Ended)
+          {
+            fingerDown = touch.position;
+            checkSwipe();
+          }
+        }
       }
       else
       {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-          FlingGuest();
+          AcceptGuest();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -78,6 +113,80 @@ public class Door : MonoBehaviour
 
   }
 
+  
+  
+  void checkSwipe()
+  {
+    //Check if Vertical swipe
+    if (verticalMove() > SWIPE_THRESHOLD && verticalMove() > horizontalValMove())
+    {
+      //Debug.Log("Vertical");
+      if (fingerDown.y - fingerUp.y > 0)//up swipe
+      {
+        OnSwipeUp();
+      }
+      else if (fingerDown.y - fingerUp.y < 0)//Down swipe
+      {
+        OnSwipeDown();
+      }
+      fingerUp = fingerDown;
+    }
+
+    //Check if Horizontal swipe
+    else if (horizontalValMove() > SWIPE_THRESHOLD && horizontalValMove() > verticalMove())
+    {
+      //Debug.Log("Horizontal");
+      if (fingerDown.x - fingerUp.x > 0)//Right swipe
+      {
+        OnSwipeRight();
+      }
+      else if (fingerDown.x - fingerUp.x < 0)//Left swipe
+      {
+        OnSwipeLeft();
+      }
+      fingerUp = fingerDown;
+    }
+
+    //No Movement at-all
+    else
+    {
+      //Debug.Log("No Swipe!");
+    }
+  }
+
+  float verticalMove()
+  {
+    return Mathf.Abs(fingerDown.y - fingerUp.y);
+  }
+
+  float horizontalValMove()
+  {
+    return Mathf.Abs(fingerDown.x - fingerUp.x);
+  }
+
+  //////////////////////////////////CALLBACK FUNCTIONS/////////////////////////////
+  void OnSwipeUp()
+  {
+    Debug.Log("Swipe UP");
+  }
+
+  void OnSwipeDown()
+  {
+    Debug.Log("Swipe Down");
+  }
+
+  void OnSwipeLeft()
+  {
+    DenyGuestEntry();
+  }
+
+  void OnSwipeRight()
+  {
+    AcceptGuest();
+  }
+  
+  
+  
   private void MoveQueueUpAndInsertAtEnd()
   {
     var temp = _queue.ToList();
@@ -94,7 +203,7 @@ public class Door : MonoBehaviour
   }
 
 
-  private void FlingGuest()
+  private void AcceptGuest()
   {
     Debug.Log("BAM");
     _animator.SetTrigger(Bam);
@@ -151,21 +260,6 @@ public class Door : MonoBehaviour
   }
 
 
-  public static GameObject FindParentWithTag(GameObject childObject, string tag)
-  {
-    Transform t = childObject.transform;
-    while (t.parent != null)
-    {
-      if (t.parent.tag == tag)
-      {
-        return t.parent.gameObject;
-      }
-
-      t = t.parent.transform;
-    }
-
-    return null; // Could not find a parent with given tag.
-  }
 
   private void OnTriggerEnter(Collider other)
   {
